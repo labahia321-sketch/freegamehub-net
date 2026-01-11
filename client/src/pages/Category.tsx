@@ -21,7 +21,7 @@ export default function Category() {
   });
 
   const { data: games = [], isLoading: gamesLoading } = useQuery<Game[]>({
-    queryKey: ["/api/games", "category", slug],
+    queryKey: ["/api/games"],
   });
 
   const category = categories.find((c) => c.slug === slug);
