@@ -86,3 +86,17 @@ Preferred communication style: Simple, everyday language.
 - Added mobile-responsive ad banner placements between sections
 - Updated footer with legal links (Privacy & Cookies, Terms of Use, etc.)
 - Updated meta tags and SEO information
+- Added Firebase Hosting configuration (firebase.json, .firebaserc)
+- Added React Native mobile app structure with AdMob placeholders (mobile-app/)
+- Added responsive Ezoic ad component for variable ad sizes
+
+## Deployment
+
+### Firebase Hosting (Web)
+```bash
+npm run build
+firebase deploy
+```
+
+### Mobile App (React Native)
+See `mobile-app/README.md` for setup and build instructions.

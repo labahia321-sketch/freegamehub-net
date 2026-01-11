@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GameEmbed } from "@/components/GameEmbed";
 import { RelatedGames } from "@/components/RelatedGames";
-import { AdBanner } from "@/components/AdBanner";
+import { AdBanner, EzoicResponsiveAd } from "@/components/AdBanner";
 import { LoadingSpinner } from "@/components/LoadingState";
 import { Badge } from "@/components/ui/badge";
 import { Star, Eye, ChevronLeft } from "lucide-react";
@@ -28,11 +28,6 @@ export default function GameDetail() {
   const relatedGames = game
     ? games.filter((g) => g.categoryId === game.categoryId && g.id !== game.id).slice(0, 5)
     : [];
-
-  const popularGames = games
-    .filter((g) => g.id !== game?.id)
-    .sort((a, b) => (b.views || 0) - (a.views || 0))
-    .slice(0, 5);
 
   const isLoading = categoriesLoading || gamesLoading;
 
@@ -89,7 +84,7 @@ export default function GameDetail() {
                 </div>
               </div>
 
-              <AdBanner type="leaderboard" provider="ezoic" className="mb-4" />
+              <EzoicResponsiveAd position="inline" className="mb-4" />
 
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
                 <div className="space-y-6">
@@ -105,16 +100,12 @@ export default function GameDetail() {
                   )}
 
                   <div className="lg:hidden">
-                    <AdBanner type="medium-rectangle" provider="ezoic" className="my-4" />
+                    <EzoicResponsiveAd position="inline" className="my-4" />
                   </div>
                 </div>
 
                 <aside className="space-y-6">
-                  <AdBanner type="medium-rectangle" provider="ezoic" />
-                  
-                  <div className="hidden lg:block">
-                    <AdBanner type="medium-rectangle" provider="ezoic" />
-                  </div>
+                  <EzoicResponsiveAd position="sidebar" />
                 </aside>
               </div>
 
@@ -125,43 +116,7 @@ export default function GameDetail() {
                   currentGameId={game.id}
                 />
 
-                <AdBanner type="leaderboard" provider="ezoic" className="mt-6" />
-
-                {popularGames.length > 0 && (
-                  <div className="mt-8">
-                    <h3 className="text-xl font-semibold mb-4">Popular Games</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                      {popularGames.map((g) => {
-                        const cat = categories.find((c) => c.id === g.categoryId);
-                        return (
-                          <Link
-                            key={g.id}
-                            href={`/game/${g.slug}`}
-                            className="group"
-                            data-testid={`link-popular-${g.slug}`}
-                          >
-                            <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
-                              <img
-                                src={g.thumbnailUrl}
-                                alt={g.title}
-                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                loading="lazy"
-                              />
-                            </div>
-                            <h4 className="mt-2 text-sm font-medium line-clamp-1">
-                              {g.title}
-                            </h4>
-                            {cat && (
-                              <span className="text-xs text-muted-foreground">
-                                {cat.name}
-                              </span>
-                            )}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
+                <EzoicResponsiveAd position="footer" className="mt-6" />
               </section>
             </>
           ) : (

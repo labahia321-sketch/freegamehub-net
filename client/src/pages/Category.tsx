@@ -3,7 +3,7 @@ import { useParams } from "wouter";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GameCard } from "@/components/GameCard";
-import { AdBanner, StickyAdSidebar } from "@/components/AdBanner";
+import { StickyAdSidebar, EzoicResponsiveAd } from "@/components/AdBanner";
 import { GameGridSkeleton, LoadingSpinner } from "@/components/LoadingState";
 import { Button } from "@/components/ui/button";
 import { Clock, TrendingUp, SortAsc } from "lucide-react";
@@ -58,7 +58,7 @@ export default function Category() {
             </div>
           ) : category ? (
             <>
-              <AdBanner type="leaderboard" provider="ezoic" className="mb-6" />
+              <EzoicResponsiveAd position="leaderboard" className="mb-6" />
 
               <div className="mb-6">
                 <h1
@@ -112,25 +112,25 @@ export default function Category() {
               </div>
 
               <div className="xl:hidden my-6">
-                <AdBanner type="mobile-banner" provider="ezoic" />
+                <EzoicResponsiveAd position="inline" />
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {sortedGames.map((game, index) => (
-                  <div key={game.id}>
-                    <GameCard
-                      game={game}
-                      category={category}
-                      showCategory={false}
-                    />
-                    {(index + 1) % 8 === 0 && index < sortedGames.length - 1 && (
-                      <div className="xl:hidden col-span-2 md:col-span-3 lg:col-span-4 my-4">
-                        <AdBanner type="mobile-banner" provider="ezoic" />
-                      </div>
-                    )}
-                  </div>
+                {sortedGames.map((game) => (
+                  <GameCard
+                    key={game.id}
+                    game={game}
+                    category={category}
+                    showCategory={false}
+                  />
                 ))}
               </div>
+
+              {sortedGames.length > 4 && (
+                <div className="xl:hidden my-6">
+                  <EzoicResponsiveAd position="inline" />
+                </div>
+              )}
 
               {sortedGames.length === 0 && (
                 <div className="text-center py-12">
@@ -140,7 +140,7 @@ export default function Category() {
                 </div>
               )}
 
-              <AdBanner type="leaderboard" provider="ezoic" className="mt-8" />
+              <EzoicResponsiveAd position="leaderboard" className="mt-8" />
             </>
           ) : (
             <div className="text-center py-12">
