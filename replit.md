@@ -49,13 +49,15 @@ Preferred communication style: Simple, everyday language.
 - `games`: Game entries (id, title, slug, description, thumbnailUrl, embedUrl, categoryId, views, rating, featured)
 
 ### Theme System
-- **Light Mode**: White background (#fff), dark text
+- **Light Mode (Default)**: White background (#fff), dark text
 - **Attenuated Mode**: Light gray background (#f0f0f0), balanced contrast
-- **Dark Mode (Default)**: Deep dark (#111) with orange (#ff6600) accents
+- **Dark Mode**: Deep dark (#111) with orange (#ff6600) accents
+- Theme preference saved to localStorage ("freegamehub-theme")
 
 ### Ad Integration Zones
-- **AdSense**: Homepage leaderboard, sticky sidebars, mobile banners between sections
-- **Ezoic/Media.net**: Game detail pages (below embed, sidebars)
+- **Home Page (AdSense)**: Leaderboard below header, sticky 160x600 sidebars on XL screens, mobile banners between category sections
+- **Category Pages (Ezoic)**: Same layout as Home - leaderboard, sticky sidebars, mobile banners
+- **Game Detail Pages (Ezoic)**: Leaderboard above embed, 300x250 ads in right column, leaderboard below recommendations section
 - All ad zones are placeholder components ready for real ad code integration
 
 ## External Dependencies
@@ -76,8 +78,11 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 - Rebranded from GameZone to FreeGameHub
-- Updated color scheme to orange (#ff6600) accents with dark default theme
-- Added sticky sidebar ad placements for large screens
+- Updated color scheme to orange (#ff6600) accents
+- Changed default theme from dark to light mode
+- Added sticky sidebar ad placements (160x600) for XL screens
+- Different ad providers per page type: AdSense (Home), Ezoic (Category/Game)
+- Game detail page redesigned with grid layout for ads beside embed
 - Added mobile-responsive ad banner placements between sections
 - Updated footer with legal links (Privacy & Cookies, Terms of Use, etc.)
 - Updated meta tags and SEO information
