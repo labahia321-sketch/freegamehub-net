@@ -1,22 +1,34 @@
 interface AdBannerProps {
-  type: "leaderboard" | "sidebar" | "medium-rectangle" | "anchor";
-  provider?: "adsense" | "ezoic";
+  type: "leaderboard" | "sidebar" | "medium-rectangle" | "anchor" | "mobile-banner";
+  provider?: "adsense" | "ezoic" | "medianet";
   className?: string;
+  sticky?: boolean;
 }
 
-export function AdBanner({ type, provider = "adsense", className = "" }: AdBannerProps) {
+export function AdBanner({ type, provider = "adsense", className = "", sticky = false }: AdBannerProps) {
   const dimensions = {
-    leaderboard: { width: "728px", height: "90px", mobileWidth: "100%", mobileHeight: "100px" },
-    sidebar: { width: "300px", height: "600px", mobileWidth: "300px", mobileHeight: "250px" },
-    "medium-rectangle": { width: "300px", height: "250px", mobileWidth: "300px", mobileHeight: "250px" },
-    anchor: { width: "100%", height: "90px", mobileWidth: "100%", mobileHeight: "60px" },
+    leaderboard: { width: "728px", height: "90px", label: "728x90 Leaderboard" },
+    sidebar: { width: "160px", height: "600px", label: "160x600 Skyscraper" },
+    "medium-rectangle": { width: "300px", height: "250px", label: "300x250 Medium Rectangle" },
+    anchor: { width: "100%", height: "90px", label: "Anchor Ad" },
+    "mobile-banner": { width: "320px", height: "100px", label: "320x100 Mobile Banner" },
   };
 
   const dim = dimensions[type];
+  const stickyClass = sticky ? "sticky-sidebar-ad" : "";
+
+  const getProviderLabel = () => {
+    switch (provider) {
+      case "adsense": return "AdSense";
+      case "ezoic": return "Ezoic";
+      case "medianet": return "Media.net";
+      default: return "Ad";
+    }
+  };
 
   return (
     <div
-      className={`flex items-center justify-center ${className}`}
+      className={`flex items-center justify-center ${stickyClass} ${className}`}
       data-testid={`ad-banner-${type}-${provider}`}
     >
       <div className="flex flex-col items-center">
@@ -33,17 +45,23 @@ export function AdBanner({ type, provider = "adsense", className = "" }: AdBanne
         >
           <div className="text-center p-4">
             <p className="font-medium">
-              {provider === "adsense" ? "AdSense" : "Ezoic"} Ad Space
+              {getProviderLabel()} Ad Space
             </p>
-            <p className="text-[10px] mt-1">
-              {type === "leaderboard" && "728x90 Leaderboard"}
-              {type === "sidebar" && "300x600 Half Page"}
-              {type === "medium-rectangle" && "300x250 Medium Rectangle"}
-              {type === "anchor" && "Anchor Ad"}
-            </p>
+            <p className="text-[10px] mt-1">{dim.label}</p>
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+export function StickyAdSidebar({ provider = "adsense", position }: { provider?: "adsense" | "ezoic" | "medianet"; position: "left" | "right" }) {
+  return (
+    <div 
+      className={`hidden xl:block fixed top-20 ${position === "left" ? "left-4" : "right-4"} z-40`}
+      data-testid={`sticky-sidebar-${position}`}
+    >
+      <AdBanner type="sidebar" provider={provider} sticky />
     </div>
   );
 }

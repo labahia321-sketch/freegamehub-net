@@ -3,10 +3,10 @@ import { useParams } from "wouter";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GameCard } from "@/components/GameCard";
-import { AdBanner } from "@/components/AdBanner";
+import { AdBanner, StickyAdSidebar } from "@/components/AdBanner";
 import { GameGridSkeleton, LoadingSpinner } from "@/components/LoadingState";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Clock, TrendingUp, SortAsc } from "lucide-react";
+import { Clock, TrendingUp, SortAsc } from "lucide-react";
 import { useState } from "react";
 import type { Game, Category as CategoryType } from "@shared/schema";
 
@@ -46,8 +46,11 @@ export default function Category() {
     <div className="min-h-screen flex flex-col theme-transition">
       <Header categories={categories} />
 
+      <StickyAdSidebar provider="adsense" position="left" />
+      <StickyAdSidebar provider="adsense" position="right" />
+
       <main className="flex-1 pt-20 pb-8">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-4 xl:ml-[200px] xl:mr-[200px] 2xl:mx-auto">
           {isLoading ? (
             <div className="space-y-6">
               <LoadingSpinner />
@@ -55,6 +58,8 @@ export default function Category() {
             </div>
           ) : category ? (
             <>
+              <AdBanner type="leaderboard" provider="adsense" className="mb-6" />
+
               <div className="mb-6">
                 <h1
                   className="text-4xl font-bold mb-2"
@@ -106,8 +111,6 @@ export default function Category() {
                 </Button>
               </div>
 
-              <AdBanner type="leaderboard" provider="adsense" className="mb-8" />
-
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {sortedGames.map((game) => (
                   <GameCard
@@ -126,6 +129,8 @@ export default function Category() {
                   </p>
                 </div>
               )}
+
+              <AdBanner type="leaderboard" provider="adsense" className="mt-8" />
             </>
           ) : (
             <div className="text-center py-12">

@@ -12,7 +12,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("gameportal-theme") as Theme;
+      const saved = localStorage.getItem("freegamehub-theme") as Theme;
       if (saved && ["light", "attenuated", "dark"].includes(saved)) {
         return saved;
       }
@@ -24,7 +24,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     root.classList.remove("light", "attenuated", "dark");
     root.classList.add(theme);
-    localStorage.setItem("gameportal-theme", theme);
+    localStorage.setItem("freegamehub-theme", theme);
   }, [theme]);
 
   const setTheme = (newTheme: Theme) => {

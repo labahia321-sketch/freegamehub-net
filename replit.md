@@ -1,8 +1,8 @@
-# GameZone - Interactive Gaming Web App
+# FreeGameHub - Free Online Games Portal
 
 ## Overview
 
-GameZone is a free online games portal built as a full-stack TypeScript application. Users can browse, search, and play embedded games directly in the browser without downloads. The platform organizes games by categories (Action, Puzzle, Racing, etc.) with features like view tracking, featured game carousel, and responsive design optimized for gaming content consumption.
+FreeGameHub is a free online games portal built as a full-stack TypeScript application. Users can browse, search, and play embedded games directly in the browser without downloads. The platform organizes games by categories (Action, Puzzle, Racing, Sports, Adventure) with features like view tracking, featured game carousel, theme switching, and responsive design optimized for gaming content consumption.
 
 ## User Preferences
 
@@ -19,16 +19,17 @@ Preferred communication style: Simple, everyday language.
 - **Build Tool**: Vite with React plugin and path aliases (@/, @shared/, @assets/)
 
 **Key Design Decisions**:
-- Dark-first aesthetic following Netflix/Spotify media browsing patterns
+- Dark-first aesthetic with orange (#ff6600) accent colors
 - Content-forward layout with games as visual heroes
 - Component architecture using Radix UI primitives wrapped in shadcn/ui styling
 - Responsive grid system (2-4 columns) for game cards
+- Sticky ad sidebar placeholders on large screens
 
 ### Backend Architecture
 - **Runtime**: Node.js with Express
 - **Language**: TypeScript with ES modules
 - **API Design**: RESTful endpoints under /api prefix
-- **Build Process**: esbuild for server bundling with allowlist for cold start optimization
+- **Build Process**: esbuild for server bundling
 
 **API Endpoints**:
 - `GET /api/categories` - List all game categories
@@ -40,35 +41,43 @@ Preferred communication style: Simple, everyday language.
 - **ORM**: Drizzle ORM with PostgreSQL dialect
 - **Schema Location**: shared/schema.ts (shared between client and server)
 - **Validation**: Zod schemas generated via drizzle-zod
-- **Current Storage**: In-memory storage implementation (MemStorage class) with interface ready for database migration
+- **Current Storage**: In-memory storage implementation (MemStorage class)
 
 **Database Schema**:
 - `users`: Authentication (id, username, password)
 - `categories`: Game categories (id, name, slug, icon, description, gameCount)
 - `games`: Game entries (id, title, slug, description, thumbnailUrl, embedUrl, categoryId, views, rating, featured)
 
-### Development vs Production
-- **Development**: Vite dev server with HMR, served via Express middleware
-- **Production**: Static file serving from dist/public, server bundled to dist/index.cjs
+### Theme System
+- **Light Mode**: White background (#fff), dark text
+- **Attenuated Mode**: Light gray background (#f0f0f0), balanced contrast
+- **Dark Mode (Default)**: Deep dark (#111) with orange (#ff6600) accents
+
+### Ad Integration Zones
+- **AdSense**: Homepage leaderboard, sticky sidebars, mobile banners between sections
+- **Ezoic/Media.net**: Game detail pages (below embed, sidebars)
+- All ad zones are placeholder components ready for real ad code integration
 
 ## External Dependencies
 
-### Database
-- **PostgreSQL**: Required for production (DATABASE_URL environment variable)
-- **Drizzle Kit**: Database migrations stored in /migrations directory
-- **connect-pg-simple**: Session storage for PostgreSQL
-
 ### UI Component Library
 - **shadcn/ui**: Pre-built accessible components based on Radix UI
-- **Radix UI**: Unstyled, accessible component primitives (dialog, dropdown, toast, etc.)
+- **Radix UI**: Unstyled, accessible component primitives
 - **Lucide React**: Icon library
 
 ### Third-Party Integrations
-- **Ad Placeholders**: AdBanner component prepared for AdSense/Ezoic integration (currently placeholder)
+- **Ad Placeholders**: AdBanner component prepared for AdSense/Ezoic/Media.net integration
 - **Google Fonts**: Inter/Poppins for UI, JetBrains Mono for metadata display
 
 ### Build & Development Tools
 - **Vite**: Frontend bundler with React and TypeScript support
 - **esbuild**: Server bundling for production
 - **tsx**: TypeScript execution for development
-- **Replit Plugins**: cartographer, dev-banner, runtime-error-modal (development only)
+
+## Recent Changes
+- Rebranded from GameZone to FreeGameHub
+- Updated color scheme to orange (#ff6600) accents with dark default theme
+- Added sticky sidebar ad placements for large screens
+- Added mobile-responsive ad banner placements between sections
+- Updated footer with legal links (Privacy & Cookies, Terms of Use, etc.)
+- Updated meta tags and SEO information

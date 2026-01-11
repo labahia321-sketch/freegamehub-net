@@ -4,10 +4,10 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GameEmbed } from "@/components/GameEmbed";
 import { RelatedGames } from "@/components/RelatedGames";
-import { AdBanner } from "@/components/AdBanner";
+import { AdBanner, StickyAdSidebar } from "@/components/AdBanner";
 import { LoadingSpinner } from "@/components/LoadingState";
 import { Badge } from "@/components/ui/badge";
-import { Star, Eye, Calendar, ChevronLeft } from "lucide-react";
+import { Star, Eye, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Game, Category } from "@shared/schema";
 
@@ -42,8 +42,11 @@ export default function GameDetail() {
     <div className="min-h-screen flex flex-col theme-transition">
       <Header categories={categories} />
 
+      <StickyAdSidebar provider="ezoic" position="left" />
+      <StickyAdSidebar provider="ezoic" position="right" />
+
       <main className="flex-1 pt-20 pb-8">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-4 xl:ml-[200px] xl:mr-[200px] 2xl:mx-auto">
           {isLoading ? (
             <LoadingSpinner />
           ) : game ? (
@@ -78,41 +81,36 @@ export default function GameDetail() {
                     {formatViews(game.views)} plays
                   </span>
                   <span className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-current text-yellow-500" />
+                    <Star className="h-4 w-4 fill-current text-primary" />
                     {((game.rating || 0) / 20).toFixed(1)} / 5
                   </span>
                 </div>
               </div>
 
-              <AdBanner type="leaderboard" provider="ezoic" className="mb-6" />
+              <GameEmbed embedUrl={game.embedUrl} title={game.title} />
 
-              <div className="flex gap-8">
-                <div className="flex-1 min-w-0">
-                  <GameEmbed embedUrl={game.embedUrl} title={game.title} />
+              <AdBanner type="leaderboard" provider="ezoic" className="my-6" />
 
-                  {game.description && (
-                    <div className="mt-6 p-4 bg-card rounded-lg border border-card-border">
-                      <h2 className="font-semibold mb-2">About this game</h2>
-                      <p className="text-muted-foreground" data-testid="text-game-description">
-                        {game.description}
-                      </p>
-                    </div>
-                  )}
-
-                  <AdBanner type="leaderboard" provider="ezoic" className="mt-8" />
-
-                  <RelatedGames
-                    games={relatedGames}
-                    categories={categories}
-                    currentGameId={game.id}
-                  />
+              {game.description && (
+                <div className="p-4 bg-card rounded-lg border border-card-border">
+                  <h2 className="font-semibold mb-2">About this game</h2>
+                  <p className="text-muted-foreground" data-testid="text-game-description">
+                    {game.description}
+                  </p>
                 </div>
+              )}
 
-                <aside className="hidden lg:block w-[300px] shrink-0 space-y-6">
-                  <AdBanner type="medium-rectangle" provider="ezoic" />
-                  <AdBanner type="medium-rectangle" provider="ezoic" />
-                </aside>
+              <div className="xl:hidden my-6">
+                <AdBanner type="medium-rectangle" provider="medianet" />
               </div>
+
+              <RelatedGames
+                games={relatedGames}
+                categories={categories}
+                currentGameId={game.id}
+              />
+
+              <AdBanner type="leaderboard" provider="ezoic" className="mt-8" />
             </>
           ) : (
             <div className="text-center py-12">

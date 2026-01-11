@@ -1,0 +1,28 @@
+Regenera o actualiza el proyecto completo "GameZone" para cambiarlo a "FreeGameHub" (sitio web de juegos online gratis con embeds de SoftGames, Playgama y similares).
+
+Cambios obligatorios:
+- Cambia todo "GameZone" por "FreeGameHub" en títulos, logo, meta tags, footer, textos visibles y cualquier referencia.
+- Título principal: "FreeGameHub - ¡Juega Gratis Online – Sin Descargas!"
+- Diseño: Moderno, oscuro por default (fondo #111, acentos naranja #ff6600), responsive (móvil, tablet, desktop).
+- Header fijo/sticky que se mantenga al hacer scroll o deslizar en móvil: Logo "FreeGameHub", menú de categorías, selector de tema (claro, atenuado, oscuro) con localStorage para recordar.
+- Modo tema: Claro (#fff fondo), Atenuado (#f0f0f0 fondo), Oscuro (#111 fondo) – con iconos o switcher en header.
+- Página principal:
+  - Banner AdSense alto horizontal debajo del header.
+  - Dos banners AdSense verticales en costados izquierda/derecha (sticky).
+  - En móvil: Banners AdSense entre secciones (debajo del header, entre categorías populares).
+  - Carrusel de juegos destacados.
+  - Secciones de categorías (Acción, Puzzle, Racing, Sports, Adventure) con tarjetas de juegos (thumbnail, título, rating, "Play Now").
+  - Categorías clicables que lleven a páginas individuales (ej. /action).
+- Páginas de categoría: Grid de juegos con placeholders para embeds (iframes), cada uno clickable a página individual.
+- Página individual de juego (ej. /game/ninja-warrior):
+  - Embed central grande (iframe placeholder para el juego real).
+  - Debajo: Breve descripción del juego (placeholder).
+  - Recomendaciones asociadas o populares (3-5 thumbnails con links).
+  - Banners de otra empresa (no AdSense) debajo del embed y en sides (placeholders para Ezoic/Media.net).
+- Footer en todas las páginas: Privacy & Cookies | Terms of Use | About our Ads | Consumer Health Privacy | Your Privacy Choices + © 2026 FreeGameHub.
+- Banners AdSense no deben molestar (no overlay, no tapen juegos).
+- Usa React + TypeScript + Vite (o el stack que usaste antes).
+- Prepara para Firebase Hosting (public folder).
+- Genera estructura completa, index.html, páginas de ejemplo (home, categoría, juego individual), CSS/JS para temas y responsive.
+
+Empieza generando el index.html completo y una página de juego de ejemplo. Luego dime cómo agregar embeds reales y más categorías.

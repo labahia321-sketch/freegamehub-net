@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FeaturedCarousel } from "@/components/FeaturedCarousel";
 import { CategorySection } from "@/components/CategorySection";
-import { AdBanner } from "@/components/AdBanner";
+import { AdBanner, StickyAdSidebar } from "@/components/AdBanner";
 import { PageLoadingState } from "@/components/LoadingState";
 import type { Game, Category } from "@shared/schema";
 
@@ -31,70 +31,77 @@ export default function Home() {
     <div className="min-h-screen flex flex-col theme-transition">
       <Header categories={categories} />
       
+      <StickyAdSidebar provider="adsense" position="left" />
+      <StickyAdSidebar provider="adsense" position="right" />
+      
       <main className="flex-1 pt-20 pb-8">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-4 xl:ml-[200px] xl:mr-[200px] 2xl:mx-auto">
           {isLoading ? (
             <PageLoadingState />
           ) : (
             <>
+              <AdBanner type="leaderboard" provider="adsense" className="mb-6" />
+
               <FeaturedCarousel games={games} categories={categories} />
 
-              <AdBanner type="leaderboard" provider="adsense" className="mb-8" />
+              <div className="xl:hidden my-6">
+                <AdBanner type="mobile-banner" provider="adsense" />
+              </div>
 
-              <div className="flex gap-8">
-                <div className="flex-1 min-w-0">
-                  {categories.map((category) => {
-                    const categoryGames = getGamesByCategory(category.id);
-                    return (
+              <div className="space-y-2">
+                {categories.map((category, index) => {
+                  const categoryGames = getGamesByCategory(category.id);
+                  return (
+                    <div key={category.id}>
                       <CategorySection
-                        key={category.id}
                         category={category}
                         games={categoryGames}
                       />
-                    );
-                  })}
+                      {index === 1 && (
+                        <div className="xl:hidden my-6">
+                          <AdBanner type="mobile-banner" provider="adsense" />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
 
-                  {recentGames.length > 0 && (
-                    <section className="mb-12" data-testid="section-recent">
-                      <h2 className="text-2xl font-semibold mb-4">Recently Added</h2>
-                      <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
-                        {recentGames.map((game) => {
-                          const category = categories.find((c) => c.id === game.categoryId);
-                          return (
-                            <div key={game.id} className="shrink-0 w-48">
-                              <Link
-                                href={`/game/${game.slug}`}
-                                className="block group"
-                                data-testid={`link-recent-${game.slug}`}
-                              >
-                                <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
-                                  <img
-                                    src={game.thumbnailUrl}
-                                    alt={game.title}
-                                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                    loading="lazy"
-                                  />
-                                </div>
-                                <h3 className="mt-2 text-sm font-medium line-clamp-1" data-testid={`text-recent-title-${game.slug}`}>
-                                  {game.title}
-                                </h3>
-                                {category && (
-                                  <span className="text-xs text-muted-foreground" data-testid={`text-recent-category-${game.slug}`}>
-                                    {category.name}
-                                  </span>
-                                )}
-                              </Link>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </section>
-                  )}
-                </div>
-
-                <aside className="hidden lg:block w-[300px] shrink-0 space-y-6">
-                  <AdBanner type="sidebar" provider="adsense" />
-                </aside>
+                {recentGames.length > 0 && (
+                  <section className="mb-12" data-testid="section-recent">
+                    <h2 className="text-2xl font-semibold mb-4">Recently Added</h2>
+                    <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
+                      {recentGames.map((game) => {
+                        const category = categories.find((c) => c.id === game.categoryId);
+                        return (
+                          <div key={game.id} className="shrink-0 w-48">
+                            <Link
+                              href={`/game/${game.slug}`}
+                              className="block group"
+                              data-testid={`link-recent-${game.slug}`}
+                            >
+                              <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
+                                <img
+                                  src={game.thumbnailUrl}
+                                  alt={game.title}
+                                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                  loading="lazy"
+                                />
+                              </div>
+                              <h3 className="mt-2 text-sm font-medium line-clamp-1" data-testid={`text-recent-title-${game.slug}`}>
+                                {game.title}
+                              </h3>
+                              {category && (
+                                <span className="text-xs text-muted-foreground" data-testid={`text-recent-category-${game.slug}`}>
+                                  {category.name}
+                                </span>
+                              )}
+                            </Link>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </section>
+                )}
               </div>
             </>
           )}

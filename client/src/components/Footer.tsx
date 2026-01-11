@@ -12,11 +12,11 @@ export function Footer({ categories }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-4">
+            <Link href="/" className="flex items-center gap-2 mb-4" data-testid="link-footer-logo">
               <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
                 <Gamepad2 className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-bold text-xl" data-testid="text-footer-logo">GameZone</span>
+              <span className="font-bold text-xl" data-testid="text-footer-logo">FreeGameHub</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Your ultimate destination for free online games. Play instantly without downloads across all your devices.
@@ -41,24 +41,15 @@ export function Footer({ categories }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4" data-testid="text-footer-pages">Pages</h3>
+            <h3 className="font-semibold mb-4" data-testid="text-footer-legal">Legal</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/about"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-footer-about"
-                >
-                  About Us
-                </Link>
-              </li>
               <li>
                 <Link
                   href="/privacy"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   data-testid="link-footer-privacy"
                 >
-                  Privacy Policy
+                  Privacy & Cookies
                 </Link>
               </li>
               <li>
@@ -67,16 +58,34 @@ export function Footer({ categories }: FooterProps) {
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   data-testid="link-footer-terms"
                 >
-                  Terms of Service
+                  Terms of Use
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href="/about-ads"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  data-testid="link-footer-contact"
+                  data-testid="link-footer-ads"
                 >
-                  Contact
+                  About our Ads
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/health-privacy"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  data-testid="link-footer-health"
+                >
+                  Consumer Health Privacy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy-choices"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  data-testid="link-footer-choices"
+                >
+                  Your Privacy Choices
                 </Link>
               </li>
             </ul>
@@ -85,7 +94,7 @@ export function Footer({ categories }: FooterProps) {
 
         <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
           <p data-testid="text-footer-copyright">
-            © {new Date().getFullYear()} GameZone. All rights reserved.
+            © 2026 FreeGameHub. All rights reserved.
           </p>
         </div>
       </div>
