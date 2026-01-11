@@ -6,11 +6,58 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  // put application routes here
-  // prefix all routes with /api
+  
+  app.get("/api/categories", async (req, res) => {
+    try {
+      const categories = await storage.getCategories();
+      res.json(categories);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch categories" });
+    }
+  });
 
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+  app.get("/api/categories/:slug", async (req, res) => {
+    try {
+      const category = await storage.getCategoryBySlug(req.params.slug);
+      if (!category) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+      res.json(category);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch category" });
+    }
+  });
+
+  app.get("/api/games", async (req, res) => {
+    try {
+      const games = await storage.getGames();
+      res.json(games);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch games" });
+    }
+  });
+
+  app.get("/api/games/:slug", async (req, res) => {
+    try {
+      const game = await storage.getGameBySlug(req.params.slug);
+      if (!game) {
+        return res.status(404).json({ error: "Game not found" });
+      }
+      await storage.incrementGameViews(game.id);
+      res.json(game);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch game" });
+    }
+  });
+
+  app.get("/api/games/category/:categoryId", async (req, res) => {
+    try {
+      const games = await storage.getGamesByCategory(req.params.categoryId);
+      res.json(games);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch games by category" });
+    }
+  });
 
   return httpServer;
 }
