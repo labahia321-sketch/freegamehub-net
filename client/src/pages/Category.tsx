@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "wouter";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -8,6 +7,7 @@ import { GameGridSkeleton, LoadingSpinner } from "@/components/LoadingState";
 import { Button } from "@/components/ui/button";
 import { Clock, TrendingUp, SortAsc } from "lucide-react";
 import { useState } from "react";
+import { useCategories, useGames } from "@/lib/useStaticData";
 import type { Game, Category as CategoryType } from "@shared/schema";
 
 type SortOption = "popular" | "newest" | "alphabetical";
@@ -16,13 +16,8 @@ export default function Category() {
   const { slug } = useParams<{ slug: string }>();
   const [sortBy, setSortBy] = useState<SortOption>("popular");
 
-  const { data: categories = [], isLoading: categoriesLoading } = useQuery<CategoryType[]>({
-    queryKey: ["/api/categories"],
-  });
-
-  const { data: games = [], isLoading: gamesLoading } = useQuery<Game[]>({
-    queryKey: ["/api/games"],
-  });
+  const { data: categories = [], isLoading: categoriesLoading } = useCategories();
+  const { data: games = [], isLoading: gamesLoading } = useGames();
 
   const category = categories.find((c) => c.slug === slug);
   const categoryGames = games.filter((g) => g.categoryId === category?.id);

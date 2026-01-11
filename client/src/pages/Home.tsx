@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -6,16 +5,12 @@ import { FeaturedCarousel } from "@/components/FeaturedCarousel";
 import { CategorySection } from "@/components/CategorySection";
 import { AdBanner, StickyAdSidebar } from "@/components/AdBanner";
 import { PageLoadingState } from "@/components/LoadingState";
+import { useCategories, useGames } from "@/lib/useStaticData";
 import type { Game, Category } from "@shared/schema";
 
 export default function Home() {
-  const { data: categories = [], isLoading: categoriesLoading } = useQuery<Category[]>({
-    queryKey: ["/api/categories"],
-  });
-
-  const { data: games = [], isLoading: gamesLoading } = useQuery<Game[]>({
-    queryKey: ["/api/games"],
-  });
+  const { data: categories = [], isLoading: categoriesLoading } = useCategories();
+  const { data: games = [], isLoading: gamesLoading } = useGames();
 
   const isLoading = categoriesLoading || gamesLoading;
 

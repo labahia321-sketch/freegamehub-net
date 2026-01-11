@@ -1,26 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "wouter";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GameEmbed } from "@/components/GameEmbed";
 import { RelatedGames } from "@/components/RelatedGames";
-import { AdBanner, EzoicResponsiveAd } from "@/components/AdBanner";
+import { EzoicResponsiveAd } from "@/components/AdBanner";
 import { LoadingSpinner } from "@/components/LoadingState";
 import { Badge } from "@/components/ui/badge";
 import { Star, Eye, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCategories, useGames } from "@/lib/useStaticData";
 import type { Game, Category } from "@shared/schema";
 
 export default function GameDetail() {
   const { slug } = useParams<{ slug: string }>();
 
-  const { data: categories = [], isLoading: categoriesLoading } = useQuery<Category[]>({
-    queryKey: ["/api/categories"],
-  });
-
-  const { data: games = [], isLoading: gamesLoading } = useQuery<Game[]>({
-    queryKey: ["/api/games"],
-  });
+  const { data: categories = [], isLoading: categoriesLoading } = useCategories();
+  const { data: games = [], isLoading: gamesLoading } = useGames();
 
   const game = games.find((g) => g.slug === slug);
   const category = game ? categories.find((c) => c.id === game.categoryId) : undefined;
