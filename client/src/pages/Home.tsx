@@ -62,6 +62,11 @@ export default function Home() {
                           <AdBanner type="mobile-banner" provider="adsense" />
                         </div>
                       )}
+                      {index === 3 && (
+                        <div className="xl:hidden my-6">
+                          <AdBanner type="mobile-banner" provider="adsense" />
+                        </div>
+                      )}
                     </div>
                   );
                 })}

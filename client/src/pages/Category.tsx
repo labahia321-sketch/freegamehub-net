@@ -46,8 +46,8 @@ export default function Category() {
     <div className="min-h-screen flex flex-col theme-transition">
       <Header categories={categories} />
 
-      <StickyAdSidebar provider="adsense" position="left" />
-      <StickyAdSidebar provider="adsense" position="right" />
+      <StickyAdSidebar provider="ezoic" position="left" />
+      <StickyAdSidebar provider="ezoic" position="right" />
 
       <main className="flex-1 pt-20 pb-8">
         <div className="max-w-5xl mx-auto px-4 xl:ml-[200px] xl:mr-[200px] 2xl:mx-auto">
@@ -58,7 +58,7 @@ export default function Category() {
             </div>
           ) : category ? (
             <>
-              <AdBanner type="leaderboard" provider="adsense" className="mb-6" />
+              <AdBanner type="leaderboard" provider="ezoic" className="mb-6" />
 
               <div className="mb-6">
                 <h1
@@ -111,14 +111,24 @@ export default function Category() {
                 </Button>
               </div>
 
+              <div className="xl:hidden my-6">
+                <AdBanner type="mobile-banner" provider="ezoic" />
+              </div>
+
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {sortedGames.map((game) => (
-                  <GameCard
-                    key={game.id}
-                    game={game}
-                    category={category}
-                    showCategory={false}
-                  />
+                {sortedGames.map((game, index) => (
+                  <div key={game.id}>
+                    <GameCard
+                      game={game}
+                      category={category}
+                      showCategory={false}
+                    />
+                    {(index + 1) % 8 === 0 && index < sortedGames.length - 1 && (
+                      <div className="xl:hidden col-span-2 md:col-span-3 lg:col-span-4 my-4">
+                        <AdBanner type="mobile-banner" provider="ezoic" />
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
 
@@ -130,7 +140,7 @@ export default function Category() {
                 </div>
               )}
 
-              <AdBanner type="leaderboard" provider="adsense" className="mt-8" />
+              <AdBanner type="leaderboard" provider="ezoic" className="mt-8" />
             </>
           ) : (
             <div className="text-center py-12">
