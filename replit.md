@@ -87,8 +87,14 @@ Preferred communication style: Simple, everyday language.
 - Updated footer with legal links (Privacy & Cookies, Terms of Use, etc.)
 - Updated meta tags and SEO information
 - Added Firebase Hosting configuration (firebase.json, .firebaserc)
-- Added React Native mobile app structure with AdMob placeholders (mobile-app/)
-- Added responsive Ezoic ad component for variable ad sizes
+- **Complete React Native mobile app with full feature parity to web**:
+  - ThemeContext with light/attenuated/dark modes + AsyncStorage persistence
+  - FeaturedCarousel, GameCard, CategorySection, ThemeSwitcher components
+  - HomeScreen, CategoryScreen, GameScreen with React Navigation
+  - WebView integration for game embeds (SoftGames compatible)
+  - AdMob integration with publisher ID ca-app-pub-9407808674220555
+  - EAS Build configuration for Android APK generation
+  - Comprehensive iOS build documentation
 
 ## Deployment
 
@@ -99,4 +105,20 @@ firebase deploy
 ```
 
 ### Mobile App (React Native)
-See `mobile-app/README.md` for setup and build instructions. probando actualizacion 11-01-2026
+
+**Android APK (using EAS Build - no Android Studio required):**
+```bash
+cd mobile-app
+npm install
+eas login
+npm run build:apk
+```
+
+**iOS (requires Mac with Xcode):**
+```bash
+cd mobile-app
+npm install
+eas build --platform ios --profile preview
+```
+
+See `mobile-app/README.md` for complete setup and build instructions.
