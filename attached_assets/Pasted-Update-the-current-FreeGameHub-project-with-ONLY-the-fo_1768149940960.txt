@@ -1,0 +1,21 @@
+Update the current "FreeGameHub" project with ONLY the following exact changes. Do NOT remove, delete, or modify anything else from the current design, structure, or features (keep the fixed header, carousel, game cards, recommendations, footer with privacy links, responsiveness, etc.).
+
+1. Change the default theme to "Light" (white background #fff) when the website loads for the first time. The user can switch to "Attenuated" (#f0f0f0) or "Dark" (#111) using the selector in the header. Use localStorage to remember the user's theme choice.
+
+2. On the Home page: Ensure 3 AdSense banners without blocking the view:
+   - One horizontal leaderboard banner below the header.
+   - Two vertical banners (sticky) on the left and right sides.
+   - On mobile: Vertical banners disappear or become horizontal between sections (below header and between popular categories).
+
+3. On category pages (e.g. Action, Puzzle, Racing, Sports, Adventure): Use Ezoic banners in the exact same positions as AdSense on Home (horizontal high banner, sticky side banners, responsive on mobile between sections). Maximum 3 banners per page.
+
+4. On individual game pages: Use 3 Ezoic banners:
+   - One above the game embed.
+   - One to the right of the game embed (do not block the game).
+   - One below in the recommendations section.
+
+5. Use responsive placeholders for banners (divs with "AdSense Placeholder" or "Ezoic Placeholder") that allow variable sizes so Ezoic works well without issues. Keep banners non-intrusive (no overlays, no covering main content).
+
+6. Keep everything else exactly the same: fixed header, carousel, game cards, description below embed, 3-5 related recommendations, footer with Privacy & Cookies | Terms of Use | About our Ads | Consumer Health Privacy | Your Privacy Choices, etc.
+
+Generate the updated files (index.html, category example like action.html, game detail example like juego1.html) with these changes only. Prepare for Firebase Hosting (dist/public after build). Do NOT change or remove anything else.
