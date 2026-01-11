@@ -3,7 +3,7 @@ import { useParams } from "wouter";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GameCard } from "@/components/GameCard";
-import { StickyAdSidebar, EzoicResponsiveAd } from "@/components/AdBanner";
+import { EzoicResponsiveAd } from "@/components/AdBanner";
 import { GameGridSkeleton, LoadingSpinner } from "@/components/LoadingState";
 import { Button } from "@/components/ui/button";
 import { Clock, TrendingUp, SortAsc } from "lucide-react";
@@ -45,8 +45,6 @@ export default function Category() {
   return (
     <div className="min-h-screen flex flex-col theme-transition">
       <Header categories={categories} />
-
-      <StickyAdSidebar provider="ezoic" position="right" />
 
       <main className="flex-1 pt-20 pb-8">
         <div className="max-w-5xl mx-auto px-4">
