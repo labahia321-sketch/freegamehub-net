@@ -26,10 +26,11 @@ export default function Home() {
     <div className="min-h-screen flex flex-col theme-transition">
       <Header categories={categories} />
       
+      <StickyAdSidebar provider="adsense" position="left" />
       <StickyAdSidebar provider="adsense" position="right" />
       
       <main className="flex-1 pt-20 pb-8">
-        <div className="max-w-5xl mx-auto px-4 xl:mr-[220px] xl:ml-4 2xl:mr-[220px] 2xl:ml-auto">
+        <div className="max-w-5xl mx-auto px-4 xl:mx-[220px] 2xl:mx-[220px]">
           {isLoading ? (
             <PageLoadingState />
           ) : (
