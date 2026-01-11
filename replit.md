@@ -99,4 +99,4 @@ firebase deploy
 ```
 
 ### Mobile App (React Native)
-See `mobile-app/README.md` for setup and build instructions.
+See `mobile-app/README.md` for setup and build instructions. probando actualizacion 11-01-2026
