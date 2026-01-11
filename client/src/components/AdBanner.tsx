@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 interface AdBannerProps {
   type: "leaderboard" | "sidebar" | "medium-rectangle" | "anchor" | "mobile-banner" | "responsive";
   provider?: "adsense" | "ezoic" | "medianet" | "admob";
@@ -5,7 +7,18 @@ interface AdBannerProps {
   sticky?: boolean;
 }
 
+const ADSENSE_CLIENT_ID = "ca-pub-9407808674220555";
+
+declare global {
+  interface Window {
+    adsbygoogle: unknown[];
+  }
+}
+
 export function AdBanner({ type, provider = "adsense", className = "", sticky = false }: AdBannerProps) {
+  const adRef = useRef<HTMLModElement>(null);
+  const isInitialized = useRef(false);
+
   const dimensions: Record<string, { width: string; height: string; label: string; responsive?: boolean }> = {
     leaderboard: { width: "728px", height: "90px", label: "728x90 Leaderboard" },
     sidebar: { width: "160px", height: "600px", label: "160x600 Skyscraper" },
@@ -18,9 +31,48 @@ export function AdBanner({ type, provider = "adsense", className = "", sticky = 
   const dim = dimensions[type];
   const stickyClass = sticky ? "sticky-sidebar-ad" : "";
 
+  useEffect(() => {
+    if (provider === "adsense" && adRef.current && !isInitialized.current) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        isInitialized.current = true;
+      } catch (e) {
+        console.error("AdSense error:", e);
+      }
+    }
+  }, [provider]);
+
+  if (provider === "adsense") {
+    return (
+      <div
+        className={`flex items-center justify-center ${stickyClass} ${className}`}
+        data-testid={`ad-banner-${type}-${provider}`}
+      >
+        <div className="flex flex-col items-center">
+          <span className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">
+            Advertisement
+          </span>
+          <ins
+            ref={adRef}
+            className="adsbygoogle"
+            style={{
+              display: "block",
+              width: dim.responsive ? "100%" : dim.width,
+              height: dim.responsive ? "auto" : dim.height,
+              maxWidth: "100%",
+            }}
+            data-ad-client={ADSENSE_CLIENT_ID}
+            data-ad-slot="auto"
+            data-ad-format={dim.responsive ? "auto" : ""}
+            data-full-width-responsive={dim.responsive ? "true" : "false"}
+          />
+        </div>
+      </div>
+    );
+  }
+
   const getProviderLabel = () => {
     switch (provider) {
-      case "adsense": return "AdSense";
       case "ezoic": return "Ezoic";
       case "medianet": return "Media.net";
       case "admob": return "AdMob";
@@ -30,7 +82,6 @@ export function AdBanner({ type, provider = "adsense", className = "", sticky = 
 
   const getProviderColor = () => {
     switch (provider) {
-      case "adsense": return "border-blue-500/30";
       case "ezoic": return "border-green-500/30";
       case "medianet": return "border-purple-500/30";
       case "admob": return "border-yellow-500/30";
