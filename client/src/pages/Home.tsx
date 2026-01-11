@@ -31,11 +31,10 @@ export default function Home() {
     <div className="min-h-screen flex flex-col theme-transition">
       <Header categories={categories} />
       
-      <StickyAdSidebar provider="adsense" position="left" />
       <StickyAdSidebar provider="adsense" position="right" />
       
       <main className="flex-1 pt-20 pb-8">
-        <div className="max-w-5xl mx-auto px-4 xl:ml-[200px] xl:mr-[200px] 2xl:mx-auto">
+        <div className="max-w-5xl mx-auto px-4 xl:mr-[200px] 2xl:mx-auto">
           {isLoading ? (
             <PageLoadingState />
           ) : (
@@ -49,25 +48,31 @@ export default function Home() {
               </div>
 
               <div className="space-y-2">
-                {categories.map((category, index) => {
+                {categories.slice(0, 2).map((category) => {
                   const categoryGames = getGamesByCategory(category.id);
                   return (
-                    <div key={category.id}>
-                      <CategorySection
-                        category={category}
-                        games={categoryGames}
-                      />
-                      {index === 1 && (
-                        <div className="xl:hidden my-6">
-                          <AdBanner type="mobile-banner" provider="adsense" />
-                        </div>
-                      )}
-                      {index === 3 && (
-                        <div className="xl:hidden my-6">
-                          <AdBanner type="mobile-banner" provider="adsense" />
-                        </div>
-                      )}
-                    </div>
+                    <CategorySection
+                      key={category.id}
+                      category={category}
+                      games={categoryGames}
+                    />
+                  );
+                })}
+
+                <AdBanner type="leaderboard" provider="adsense" className="my-6" />
+
+                <div className="xl:hidden my-6">
+                  <AdBanner type="mobile-banner" provider="adsense" />
+                </div>
+
+                {categories.slice(2).map((category) => {
+                  const categoryGames = getGamesByCategory(category.id);
+                  return (
+                    <CategorySection
+                      key={category.id}
+                      category={category}
+                      games={categoryGames}
+                    />
                   );
                 })}
 

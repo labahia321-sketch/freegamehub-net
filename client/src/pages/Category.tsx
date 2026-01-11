@@ -46,11 +46,10 @@ export default function Category() {
     <div className="min-h-screen flex flex-col theme-transition">
       <Header categories={categories} />
 
-      <StickyAdSidebar provider="ezoic" position="left" />
       <StickyAdSidebar provider="ezoic" position="right" />
 
       <main className="flex-1 pt-20 pb-8">
-        <div className="max-w-5xl mx-auto px-4 xl:ml-[200px] xl:mr-[200px] 2xl:mx-auto">
+        <div className="max-w-5xl mx-auto px-4 xl:mr-[200px] 2xl:mx-auto">
           {isLoading ? (
             <div className="space-y-6">
               <LoadingSpinner />
@@ -116,7 +115,7 @@ export default function Category() {
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {sortedGames.map((game) => (
+                {sortedGames.slice(0, Math.ceil(sortedGames.length / 2)).map((game) => (
                   <GameCard
                     key={game.id}
                     game={game}
@@ -126,11 +125,22 @@ export default function Category() {
                 ))}
               </div>
 
-              {sortedGames.length > 4 && (
-                <div className="xl:hidden my-6">
-                  <EzoicResponsiveAd position="inline" />
-                </div>
-              )}
+              <EzoicResponsiveAd position="leaderboard" className="my-6" />
+
+              <div className="xl:hidden my-6">
+                <EzoicResponsiveAd position="inline" />
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {sortedGames.slice(Math.ceil(sortedGames.length / 2)).map((game) => (
+                  <GameCard
+                    key={game.id}
+                    game={game}
+                    category={category}
+                    showCategory={false}
+                  />
+                ))}
+              </div>
 
               {sortedGames.length === 0 && (
                 <div className="text-center py-12">
@@ -139,8 +149,6 @@ export default function Category() {
                   </p>
                 </div>
               )}
-
-              <EzoicResponsiveAd position="leaderboard" className="mt-8" />
             </>
           ) : (
             <div className="text-center py-12">
