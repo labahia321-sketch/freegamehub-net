@@ -1,4 +1,6 @@
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Platform } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
 
 type AdPosition = 'top' | 'bottom' | 'inline' | 'sidebar';
 type AdSize = 'banner' | 'largeBanner' | 'mediumRectangle' | 'fullBanner' | 'leaderboard';
@@ -17,15 +19,48 @@ const AD_SIZES = {
   leaderboard: { width: 728, height: 90, label: '728x90 Leaderboard' },
 };
 
+export const AdMobConfig = {
+  APP_ID_ANDROID: 'ca-app-pub-9407808674220555~XXXXXXXXXX',
+  APP_ID_IOS: 'ca-app-pub-9407808674220555~XXXXXXXXXX',
+  BANNER_UNIT_ID_ANDROID: 'ca-app-pub-9407808674220555/XXXXXXXXXX',
+  BANNER_UNIT_ID_IOS: 'ca-app-pub-9407808674220555/XXXXXXXXXX',
+  INTERSTITIAL_UNIT_ID_ANDROID: 'ca-app-pub-9407808674220555/XXXXXXXXXX',
+  INTERSTITIAL_UNIT_ID_IOS: 'ca-app-pub-9407808674220555/XXXXXXXXXX',
+  TEST_BANNER_ID: 'ca-app-pub-3940256099942544/6300978111',
+  TEST_INTERSTITIAL_ID: 'ca-app-pub-3940256099942544/1033173712',
+  TEST_REWARDED_ID: 'ca-app-pub-3940256099942544/5224354917',
+};
+
+export function getAdUnitId(type: 'banner' | 'interstitial', testMode = true): string {
+  if (testMode) {
+    return type === 'banner' ? AdMobConfig.TEST_BANNER_ID : AdMobConfig.TEST_INTERSTITIAL_ID;
+  }
+  if (Platform.OS === 'android') {
+    return type === 'banner' ? AdMobConfig.BANNER_UNIT_ID_ANDROID : AdMobConfig.INTERSTITIAL_UNIT_ID_ANDROID;
+  }
+  return type === 'banner' ? AdMobConfig.BANNER_UNIT_ID_IOS : AdMobConfig.INTERSTITIAL_UNIT_ID_IOS;
+}
+
 export function AdMobBanner({ position, size = 'banner', testMode = true }: AdMobBannerProps) {
+  const { colors } = useTheme();
   const adSize = AD_SIZES[size];
-  
+
   return (
     <View style={[styles.container, styles[position]]}>
-      <Text style={styles.label}>Advertisement</Text>
-      <View style={[styles.placeholder, { width: adSize.width, height: adSize.height }]}>
-        <Text style={styles.providerText}>AdMob Placeholder</Text>
-        <Text style={styles.sizeText}>{adSize.label}</Text>
+      <Text style={[styles.label, { color: colors.textMuted }]}>Advertisement</Text>
+      <View
+        style={[
+          styles.placeholder,
+          {
+            width: Math.min(adSize.width, 340),
+            height: adSize.height,
+            backgroundColor: colors.surface,
+            borderColor: colors.border,
+          },
+        ]}
+      >
+        <Text style={[styles.providerText, { color: colors.textSecondary }]}>AdMob</Text>
+        <Text style={[styles.sizeText, { color: colors.textMuted }]}>{adSize.label}</Text>
         {testMode && <Text style={styles.testText}>Test Mode</Text>}
       </View>
     </View>
@@ -56,21 +91,17 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   sidebar: {
-    position: 'absolute',
-    right: 8,
+    marginVertical: 8,
   },
   label: {
     fontSize: 10,
-    color: '#888',
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: 4,
   },
   placeholder: {
-    backgroundColor: 'rgba(255, 193, 7, 0.1)',
     borderWidth: 1,
     borderStyle: 'dashed',
-    borderColor: 'rgba(255, 193, 7, 0.4)',
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -79,11 +110,9 @@ const styles = StyleSheet.create({
   providerText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#666',
   },
   sizeText: {
     fontSize: 10,
-    color: '#888',
     marginTop: 4,
   },
   testText: {
@@ -92,12 +121,3 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 });
-
-export const AdMobConfig = {
-  BANNER_UNIT_ID: 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY',
-  INTERSTITIAL_UNIT_ID: 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY',
-  REWARDED_UNIT_ID: 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY',
-  TEST_BANNER_ID: 'ca-app-pub-3940256099942544/6300978111',
-  TEST_INTERSTITIAL_ID: 'ca-app-pub-3940256099942544/1033173712',
-  TEST_REWARDED_ID: 'ca-app-pub-3940256099942544/5224354917',
-};

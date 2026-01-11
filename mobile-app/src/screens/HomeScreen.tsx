@@ -1,58 +1,61 @@
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../context/ThemeContext';
+import { STATIC_GAMES, STATIC_CATEGORIES, Game } from '../data/games';
+import { FeaturedCarousel } from '../components/FeaturedCarousel';
+import { CategorySection } from '../components/CategorySection';
 import { AdMobBanner } from '../ads/AdMobBanner';
 
-const CATEGORIES = [
-  { id: 'action', name: 'Action', icon: 'sword' },
-  { id: 'puzzle', name: 'Puzzle', icon: 'puzzle' },
-  { id: 'racing', name: 'Racing', icon: 'car' },
-  { id: 'sports', name: 'Sports', icon: 'trophy' },
-  { id: 'adventure', name: 'Adventure', icon: 'compass' },
-];
+export function HomeScreen() {
+  const navigation = useNavigation<any>();
+  const { colors } = useTheme();
 
-const FEATURED_GAMES = [
-  { id: '1', title: 'Ninja Warrior', category: 'Action', thumbnail: 'https://via.placeholder.com/300x200' },
-  { id: '2', title: 'Block Blast', category: 'Puzzle', thumbnail: 'https://via.placeholder.com/300x200' },
-  { id: '3', title: 'Street Racer', category: 'Racing', thumbnail: 'https://via.placeholder.com/300x200' },
-];
+  const getGamesByCategory = (categoryId: string) => {
+    return STATIC_GAMES.filter((g) => g.categoryId === categoryId).slice(0, 4);
+  };
 
-export function HomeScreen({ navigation }: any) {
+  const handleGamePress = (game: Game) => {
+    navigation.navigate('Game', { slug: game.slug });
+  };
+
+  const handleViewAllCategory = (categorySlug: string) => {
+    navigation.navigate('Category', { slug: categorySlug });
+  };
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
       <AdMobBanner position="top" size="largeBanner" />
-      
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Categories</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {CATEGORIES.map((cat) => (
-            <TouchableOpacity
-              key={cat.id}
-              style={styles.categoryCard}
-              onPress={() => navigation.navigate('Category', { slug: cat.id })}
-            >
-              <Text style={styles.categoryName}>{cat.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Featured Games</Text>
-        {FEATURED_GAMES.map((game, index) => (
-          <View key={game.id}>
-            <TouchableOpacity
-              style={styles.gameCard}
-              onPress={() => navigation.navigate('Game', { slug: game.id })}
-            >
-              <Image source={{ uri: game.thumbnail }} style={styles.gameThumbnail} />
-              <View style={styles.gameInfo}>
-                <Text style={styles.gameTitle}>{game.title}</Text>
-                <Text style={styles.gameCategory}>{game.category}</Text>
-              </View>
-            </TouchableOpacity>
-            {index === 1 && <AdMobBanner position="inline" size="mediumRectangle" />}
-          </View>
-        ))}
-      </View>
+      <FeaturedCarousel
+        games={STATIC_GAMES}
+        categories={STATIC_CATEGORIES}
+        onGamePress={handleGamePress}
+      />
+
+      <AdMobBanner position="inline" size="banner" />
+
+      {STATIC_CATEGORIES.slice(0, 2).map((category) => (
+        <CategorySection
+          key={category.id}
+          category={category}
+          games={getGamesByCategory(category.id)}
+          onGamePress={handleGamePress}
+          onViewAll={() => handleViewAllCategory(category.slug)}
+        />
+      ))}
+
+      <AdMobBanner position="inline" size="mediumRectangle" />
+
+      {STATIC_CATEGORIES.slice(2).map((category) => (
+        <CategorySection
+          key={category.id}
+          category={category}
+          games={getGamesByCategory(category.id)}
+          onGamePress={handleGamePress}
+          onViewAll={() => handleViewAllCategory(category.slug)}
+        />
+      ))}
 
       <AdMobBanner position="bottom" size="largeBanner" />
     </ScrollView>
@@ -62,52 +65,5 @@ export function HomeScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  section: {
-    padding: 16,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 12,
-    color: '#111',
-  },
-  categoryCard: {
-    backgroundColor: '#ff6600',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginRight: 12,
-  },
-  categoryName: {
-    color: '#fff',
-    fontWeight: '600',
-  },
-  gameCard: {
-    flexDirection: 'row',
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    marginBottom: 12,
-    overflow: 'hidden',
-  },
-  gameThumbnail: {
-    width: 120,
-    height: 80,
-  },
-  gameInfo: {
-    flex: 1,
-    padding: 12,
-    justifyContent: 'center',
-  },
-  gameTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#111',
-  },
-  gameCategory: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 4,
   },
 });
