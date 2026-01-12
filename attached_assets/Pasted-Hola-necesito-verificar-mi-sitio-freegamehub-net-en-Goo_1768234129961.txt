@@ -1,0 +1,42 @@
+Hola, necesito verificar mi sitio freegamehub.net en Google AdSense, pero ya tengo Ezoic activo en categorías y páginas de juegos individuales (AdSense solo debe estar en la Home para evitar conflictos).
+
+Google AdSense me da este código de verificación (script):
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9407808674220555"
+     crossorigin="anonymous"></script>
+
+IMPORTANTE: Solo insértalo en la página HOME (index.html o la landing principal), NO en un layout global/head compartido que afecte a categorías o juegos (para no interferir con Ezoic).
+
+Pasos exactos:
+
+1. Identifica el archivo de la página principal/Home (probablemente index.html en la raíz o en /public si usas Vite/React/Astro; o el entry point principal si es multi-página estática).
+
+2. Abre ese archivo y agrega el script DENTRO de <head>, preferiblemente lo más arriba posible (justo después de <head> o antes de otros scripts). Ejemplo:
+
+<head>
+  <!-- metas, title, css existentes -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9407808674220555"
+     crossorigin="anonymous"></script>
+  <!-- resto del head -->
+</head>
+
+NO lo agregues en archivos de layout/head.html/shared si existen, solo en la home específica.
+
+Alternativa más limpia (si prefieres no poner el script y solo verificar): Usa la opción "Etiqueta meta" en AdSense (meta name="google-adsense-account" content="ca-pub-9407808674220555"). Si eliges esta, agrégala en <head> de la home en vez del script.
+
+3. Además, verifica/crea ads.txt en la raíz del proyecto (archivo ads.txt) con al menos esta línea para AdSense (y agrega la de Ezoic si te la dio):
+google.com, pub-9407808674220555, DIRECT, f08c47fec0942fa0
+(Ezoic te da su línea exacta en su dashboard → Monetization → ads.txt).
+
+4. Guarda cambios.
+
+5. Commit y push a GitHub (o redeploy desde Replit si es automático).
+
+6. Espera 5-30 min para que se publique, luego ve a AdSense → marca "He colocado mi código" (o la meta) → Verificar.
+
+¿Puedes implementar SOLO en la home ahora? Muéstrame:
+- Qué archivo vas a editar.
+- Cómo queda el <head> modificado (muestra el código antes/después).
+- Confirma si detectas Ezoic scripts en otras páginas para no tocarlas.
+
+Si es más fácil con meta tag, haz esa en vez del script. ¡Gracias!
