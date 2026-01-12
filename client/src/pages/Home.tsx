@@ -37,7 +37,14 @@ export default function Home() {
             <>
               <AdBanner type="leaderboard" provider="adsense" className="mb-6" />
 
-              <FeaturedCarousel games={games} categories={categories} />
+              <div className="flex gap-6 items-start">
+                <div className="flex-1 min-w-0">
+                  <FeaturedCarousel games={games} categories={categories} />
+                </div>
+                <div className="hidden lg:block shrink-0">
+                  <AdBanner type="medium-rectangle" provider="adsense" />
+                </div>
+              </div>
 
               <div className="xl:hidden my-6">
                 <AdBanner type="mobile-banner" provider="adsense" />
