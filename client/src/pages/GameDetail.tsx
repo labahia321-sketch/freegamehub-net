@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GameEmbed } from "@/components/GameEmbed";
 import { RelatedGames } from "@/components/RelatedGames";
-import { EzoicResponsiveAd } from "@/components/AdBanner";
+import { AdBanner } from "@/components/AdBanner";
 import { LoadingSpinner } from "@/components/LoadingState";
 import { Badge } from "@/components/ui/badge";
 import { Star, Eye, ChevronLeft } from "lucide-react";
@@ -79,7 +79,7 @@ export default function GameDetail() {
                 </div>
               </div>
 
-              <EzoicResponsiveAd position="inline" className="mb-4" />
+              <AdBanner type="leaderboard" provider="adsense" className="mb-4" />
 
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
                 <div className="space-y-6">
@@ -95,12 +95,12 @@ export default function GameDetail() {
                   )}
 
                   <div className="lg:hidden">
-                    <EzoicResponsiveAd position="inline" className="my-4" />
+                    <AdBanner type="mobile-banner" provider="adsense" className="my-4" />
                   </div>
                 </div>
 
                 <aside className="space-y-6">
-                  <EzoicResponsiveAd position="sidebar" />
+                  <AdBanner type="medium-rectangle" provider="adsense" />
                 </aside>
               </div>
 
@@ -111,7 +111,7 @@ export default function GameDetail() {
                   currentGameId={game.id}
                 />
 
-                <EzoicResponsiveAd position="footer" className="mt-6" />
+                <AdBanner type="leaderboard" provider="adsense" className="mt-6" />
               </section>
             </>
           ) : (

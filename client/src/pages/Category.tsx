@@ -2,7 +2,7 @@ import { useParams } from "wouter";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GameCard } from "@/components/GameCard";
-import { EzoicResponsiveAd } from "@/components/AdBanner";
+import { AdBanner } from "@/components/AdBanner";
 import { GameGridSkeleton, LoadingSpinner } from "@/components/LoadingState";
 import { Button } from "@/components/ui/button";
 import { Clock, TrendingUp, SortAsc } from "lucide-react";
@@ -50,7 +50,7 @@ export default function Category() {
             </div>
           ) : category ? (
             <>
-              <EzoicResponsiveAd position="leaderboard" className="mb-6" />
+              <AdBanner type="leaderboard" provider="adsense" className="mb-6" />
 
               <div className="mb-6">
                 <h1
@@ -104,7 +104,7 @@ export default function Category() {
               </div>
 
               <div className="xl:hidden my-6">
-                <EzoicResponsiveAd position="inline" />
+                <AdBanner type="mobile-banner" provider="adsense" />
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -118,10 +118,10 @@ export default function Category() {
                 ))}
               </div>
 
-              <EzoicResponsiveAd position="leaderboard" className="my-6" />
+              <AdBanner type="leaderboard" provider="adsense" className="my-6" />
 
               <div className="xl:hidden my-6">
-                <EzoicResponsiveAd position="inline" />
+                <AdBanner type="mobile-banner" provider="adsense" />
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
