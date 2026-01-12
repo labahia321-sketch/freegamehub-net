@@ -79,6 +79,8 @@ export default function Home() {
                   );
                 })}
 
+                <AdBanner type="leaderboard" provider="adsense" className="my-6" />
+
                 {recentGames.length > 0 && (
                   <section className="mb-12" data-testid="section-recent">
                     <h2 className="text-2xl font-semibold mb-4">Recently Added</h2>
