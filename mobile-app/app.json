@@ -16,7 +16,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.freegamehub.app",
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-9407808674220555~XXXXXXXXXX"
+        "googleMobileAdsAppId": "ca-app-pub-9407808674220555~8609702819"
       },
       "infoPlist": {
         "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
@@ -27,9 +27,9 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ff6600"
       },
-      "package": "com.freegamehub.app",
+      "package": "net.freegamehub.app",
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-9407808674220555~XXXXXXXXXX"
+        "googleMobileAdsAppId": "ca-app-pub-9407808674220555~8609702819"
       },
       "permissions": [
         "android.permission.INTERNET",
@@ -40,18 +40,17 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-9407808674220555~XXXXXXXXXX",
-          "iosAppId": "ca-app-pub-9407808674220555~XXXXXXXXXX"
-        }
-      ]
+      "react-native-google-mobile-ads"
     ],
     "extra": {
       "eas": {
         "projectId": "freegamehub-mobile"
       }
     }
+  },
+
+  "react-native-google-mobile-ads": {
+    "androidAppId": "ca-app-pub-9407808674220555~8609702819",
+    "iosAppId": "ca-app-pub-9407808674220555~8609702819"
   }
 }
