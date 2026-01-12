@@ -1,0 +1,47 @@
+Refuerza y crea ahora las 5 páginas legales para el sitio https://freegamehub.net/ y la app móvil. Deben cumplir con los requisitos de Google Play Console, App Store, GDPR, CCPA y regulaciones de privacidad/anuncios 2026. Usa solo mi correo labahia321@gmail.com como contacto (NO incluyas mi nombre ni apellido en ningún lugar por privacidad).
+
+Páginas a crear (como rutas SPA o archivos HTML independientes, con header, menú y footer consistente con el sitio):
+1. /privacy → Privacy & Cookies Policy
+   - Qué datos se recolectan (anónimos: IP, device info, cookies de ads).
+   - Uso: mostrar anuncios personalizados (AdMob/Ezoic), analytics.
+   - Cookies de terceros (Google, Ezoic).
+   - Derechos: acceso, eliminación, opt-out (GDPR/CCPA).
+   - Fecha: January 11, 2026.
+
+2. /terms → Terms of Use
+   - Aceptación de términos al usar la app/web.
+   - Uso permitido: no copiar, no hackear, no spam.
+   - Propiedad: contenido de terceros (SoftGames/Playgama), © 2026 FreeGameHub.
+   - No responsabilidad por contenido de embeds.
+   - Terminación por abuso.
+   - Ley aplicable: California, EE.UU.
+   - Fecha: January 11, 2026.
+
+3. /about-ads → About our Ads
+   - Usamos AdMob y Ezoic para mantener la app gratis.
+   - Ads personalizados (cookies/intereses).
+   - Opt-out: settings de dispositivo o links de proveedores.
+   - No ads personalizados para menores de 13.
+   - Fecha: January 11, 2026.
+
+4. /consumer-health-privacy → Consumer Health Privacy
+   - Declaración clara: No recolectamos ni usamos datos de salud.
+   - No usamos datos de salud para ads o personalización.
+   - Cumplimiento con leyes de privacidad de salud (no aplica HIPAA porque no hay datos de salud).
+   - Fecha: January 11, 2026.
+
+5. /your-privacy-choices → Your Privacy Choices
+   - Derechos CCPA/GDPR: saber qué datos se recolectan, eliminar, opt-out de venta.
+   - No vendemos datos personales.
+   - Cómo ejercer derechos: email a labahia321@gmail.com (respuesta en 45 días).
+   - Fecha: January 11, 2026.
+
+Requisitos generales para todas:
+- Idioma principal: Inglés (para audiencia Norteamérica/Europa).
+- Diseño consistente: Header con logo FreeGameHub + menú (Home, Action, etc.), footer con links a las 5 páginas + © 2026 FreeGameHub. All rights reserved.
+- Crea los archivos (privacy.tsx, terms.tsx, etc.) o HTML estáticos.
+- Agrega rutas en App.tsx (si es SPA) para que funcionen /privacy, /terms, etc.
+- Ejecuta npm run build y firebase deploy --only hosting.
+- Confirma cuando estén listas y dame los links para verificar (https://freegamehub.net/privacy, etc.).
+
+Haz todo ahora paso a paso y dime cuando el deploy termine.

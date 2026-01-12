@@ -7,6 +7,11 @@ import { ThemeProvider } from "@/lib/theme";
 import Home from "@/pages/Home";
 import Category from "@/pages/Category";
 import GameDetail from "@/pages/GameDetail";
+import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
+import AboutAds from "@/pages/AboutAds";
+import ConsumerHealthPrivacy from "@/pages/ConsumerHealthPrivacy";
+import YourPrivacyChoices from "@/pages/YourPrivacyChoices";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -15,6 +20,11 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/category/:slug" component={Category} />
       <Route path="/game/:slug" component={GameDetail} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
+      <Route path="/about-ads" component={AboutAds} />
+      <Route path="/consumer-health-privacy" component={ConsumerHealthPrivacy} />
+      <Route path="/your-privacy-choices" component={YourPrivacyChoices} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -72,7 +72,7 @@ export function Footer({ categories }: FooterProps) {
               </li>
               <li>
                 <Link
-                  href="/health-privacy"
+                  href="/consumer-health-privacy"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   data-testid="link-footer-health"
                 >
@@ -81,7 +81,7 @@ export function Footer({ categories }: FooterProps) {
               </li>
               <li>
                 <Link
-                  href="/privacy-choices"
+                  href="/your-privacy-choices"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   data-testid="link-footer-choices"
                 >
