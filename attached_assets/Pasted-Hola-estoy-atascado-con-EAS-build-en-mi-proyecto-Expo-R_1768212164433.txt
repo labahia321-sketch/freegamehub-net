@@ -1,0 +1,88 @@
+Hola, estoy atascado con EAS build en mi proyecto Expo (React Native) en Replit.
+
+Problema:
+- El comando npx eas build:configure falla siempre con:
+  "Failed to resolve plugin for module "react-native-google-mobile-ads" relative to "/home/runner/workspace/mobile-app""
+  y también "Warning: Root-level "expo" object found. Ignoring extra key in Expo config: "react-native-google-mobile-ads""
+
+Mi app.json actual es este (con el ID de AdMob real ya puesto):
+
+{
+  "expo": {
+    "name": "FreeGameHub",
+    "slug": "freegamehub",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ff6600"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.freegamehub.app",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-9407808674220555~8609702819"
+      },
+      "infoPlist": {
+        "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ff6600"
+      },
+      "package": "net.freegamehub.app",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-9407808674220555~8609702819"
+      },
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "react-native-google-mobile-ads"
+    ],
+    "extra": {}
+  },
+
+  "react-native-google-mobile-ads": {
+    "androidAppId": "ca-app-pub-9407808674220555~8609702819",
+    "iosAppId": "ca-app-pub-9407808674220555~8609702819"
+  }
+}
+
+Objetivo final: generar un Android App Bundle (AAB) para subir a Google Play Console (internal testing).
+
+Tareas que necesito que hagas por mí, en orden:
+
+1. Verifica la versión de EAS CLI y Expo que tengo instaladas (corre eas --version y npx expo --version).
+
+2. Limpia cache y reinstala dependencias:
+   rm -rf node_modules .expo
+   npm install
+
+3. Intenta ejecutar npx expo config --json para ver el error exacto de la config.
+
+4. Si el error es por el plugin de AdMob, prueba estas soluciones una por una hasta que funcione:
+   - Quitar temporalmente "react-native-google-mobile-ads" de plugins y la clave raíz "react-native-google-mobile-ads".
+   - Correr npx eas build:configure con esa versión limpia.
+   - Si pasa, lanzar npx eas build --platform android --profile production.
+   - Si funciona, después agregar el plugin de nuevo.
+
+5. Si no funciona, fuerza el build directo sin configure:
+   npx eas build --platform android --profile production
+
+6. Si todo falla, crea un eas.json manual con profile production para Android (buildType: "aab") y lanza el build.
+
+7. Muéstrame todos los comandos que ejecutes y sus outputs completos.
+
+Por favor, resuélvelo paso a paso y no me dejes en bucle. Si no puedes hacer el build en Replit, dime claramente la mejor alternativa (GitHub Actions, PC local, etc.). Gracias.
